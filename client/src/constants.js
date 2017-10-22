@@ -1,0 +1,2 @@
+export const SENT_MESSAGE = 'SENT_MESSAGE';
+export const SENT_NOTIFICATION = 'SENT_NOTIFICATION';

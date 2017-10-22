@@ -1,1 +1,50 @@
 @import 'variables.scss';
+
+body, main, #app {
+  height: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  flex: 0 0 auto;
+}
+
+section {
+  display: flex;
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+section.users {
+  border-right: #ecf0f1 1px solid;
+  flex: 1;
+  flex-grow: 1;
+}
+
+@media only screen and (min-width : 320px) and (max-width : 1023px) {
+  section.users {
+    display: none;
+  }
+}
+
+section.messages {
+  flex: 2;
+  flex-grow: 5;
+}
+
+div.chat {
+  display: flex;
+  width: 100%;
+}
+
+div.userlist {
+  width: 100%;
+}
+
+footer {
+  flex: 0 0 auto;
+}

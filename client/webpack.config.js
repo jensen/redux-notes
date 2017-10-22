@@ -9,7 +9,8 @@ module.exports = {
   },
   output: {
     filename: 'js/[name]-generated.js',
-    path: path.resolve(__dirname, '../build/')
+    path: path.resolve(__dirname, '../build/'),
+    publicPath: '/'
   },
   resolve: {
     alias: {
@@ -57,6 +58,7 @@ module.exports = {
     }),
     new ExtractTextWebpackPlugin('css/app-generated.css')
   ],
+  devtool: 'eval-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, '../build/'),
     watchOptions: {

@@ -1,8 +1,42 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
 import 'semantic-ui-css/semantic.css';
 import 'styles/application.scss';
 
-export default function Root(props) {
-  return <div></div>
+import { Segment } from 'semantic-ui-react';
+
+import { addMessage } from 'app/redux/chat';
+
+import Chat from 'app/containers/Chat.jsx';
+import Navigation from 'app/containers/Navigation.jsx';
+import MessageInput from 'app/components/MessageInput.jsx';
+
+const mapStateToProps = ({ user }) => ({
+  user
+});
+
+const mapDispatchToProps = {
+  addMessage
+};
+
+function Root(props) {
+  return (
+    <main>
+      <header>
+        <Navigation />
+      </header>
+      <section>
+        <Chat />
+      </section>
+      <footer>
+        <Segment basic>
+          <MessageInput { ...props } />
+        </Segment>
+      </footer>
+    </main>
+  )
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Root);
