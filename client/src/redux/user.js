@@ -17,7 +17,7 @@ export function setColor(color) {
 
 const initialState = {
   name: '',
-  color: '#fff'
+  color: '#f44336'
 };
 
 export default (state = initialState, action) => {

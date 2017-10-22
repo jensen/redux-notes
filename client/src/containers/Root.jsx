@@ -9,9 +9,11 @@ import { Segment } from 'semantic-ui-react';
 
 import { addMessage } from 'app/redux/chat';
 
+import Login from 'app/containers/Login.jsx';
 import Chat from 'app/containers/Chat.jsx';
 import Navigation from 'app/containers/Navigation.jsx';
 import MessageInput from 'app/components/MessageInput.jsx';
+
 
 const mapStateToProps = ({ user }) => ({
   user
@@ -22,6 +24,8 @@ const mapDispatchToProps = {
 };
 
 function Root(props) {
+  if(props.user.name === '') return <Login />;
+
   return (
     <main>
       <header>
