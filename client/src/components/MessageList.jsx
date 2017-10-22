@@ -1,3 +1,5 @@
+/* eslint react/no-find-dom-node: 0 */
+
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
@@ -30,11 +32,11 @@ function Notification(props) {
 
 export default class MessageList extends Component {
   componentDidMount() {
-    findDOMNode(this.refs.end).scrollIntoView(true);
+    findDOMNode(this.end).scrollIntoView(true);
   }
 
   componentDidUpdate() {
-    findDOMNode(this.refs.end).scrollIntoView({ behavior: "smooth" });
+    findDOMNode(this.end).scrollIntoView({ behavior: 'smooth' });
   }
 
   render() {
@@ -47,7 +49,7 @@ export default class MessageList extends Component {
     return (
       <Comment.Group size='huge' style={{ maxWidth: '100%' }} >
         { messages }
-        <div ref='end'></div>
+        <div ref={ ref => this.end = ref }></div>
       </Comment.Group>
     )
   }

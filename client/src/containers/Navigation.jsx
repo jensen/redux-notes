@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Menu } from 'semantic-ui-react';
 
-function Navigation(props) {
+function Navigation() {
   return (
     <Menu attached='top' size='massive'>
       <Menu.Item>Chatty Redux</Menu.Item>

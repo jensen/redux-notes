@@ -57,7 +57,7 @@ function generateNotification({ content }) {
 }
 
 export default (state = initialState, action) => {
-  const { type, username, content, count } = action;
+  const { type, username, count } = action;
 
   if(type === CHAT_ADD_MESSAGE) {
     return {

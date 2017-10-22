@@ -2,9 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { Grid, Segment } from 'semantic-ui-react';
-
-import { addMessage } from 'app/redux/chat';
+import { Segment } from 'semantic-ui-react';
 
 import UserList from 'app/components/UserList.jsx';
 import MessageList from 'app/components/MessageList.jsx';

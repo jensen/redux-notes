@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { CirclePicker } from 'react-color';
 
-import { Button, Card, Icon, Image, Input, Form, Segment } from 'semantic-ui-react';
+import { Button, Card, Image, Input, Form, Segment } from 'semantic-ui-react';
 
 import Avatar from 'app/lib/avatar';
 
@@ -22,20 +22,20 @@ export default class UserCreate extends Component {
     });
   }
 
-  onChangeColor = (color, event) => {
+  onChangeColor = color => {
     this.setState({
       color: color.hex
     });
   }
 
-  onSubmitLogin = event => {
+  onSubmitLogin = () => {
     this.props.setColor(this.state.color);
     this.props.setName(this.state.name);
     this.props.addUser(this.state.name);
   }
 
   render() {
-    const { name, color } = this.state;
+    const { name } = this.state;
     const { users } = this.props;
 
     const disabled = name === '' || users.find(u => u.username === name) || name.length > 16;
