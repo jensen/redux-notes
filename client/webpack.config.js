@@ -1,9 +1,13 @@
 const path = require('path');
 
+const webpack = require('webpack');
+
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
-module.exports = {
+const ENV = process.env.NODE_ENV || 'development';
+
+const config = {
   entry: {
     app: path.resolve(__dirname, 'src/index.js')
   },
@@ -27,8 +31,10 @@ module.exports = {
           options: {
             presets: [
               'stage-0',
+              'es2015',
               'react'
-            ]
+            ],
+            plugins: ['transform-class-properties']
           }
         },
         exclude: /node_modules/
@@ -58,7 +64,7 @@ module.exports = {
     }),
     new ExtractTextWebpackPlugin('css/app-generated.css')
   ],
-  devtool: 'eval-source-map',
+  devtool: ENV === 'production' ? 'nosources-source-map' : 'eval-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, '../build/'),
     proxy: {
@@ -71,3 +77,16 @@ module.exports = {
     }
   }
 };
+
+if(ENV === 'production') {
+  config.plugins.concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin()
+  ]);
+}
+
+module.exports = config;
