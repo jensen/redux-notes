@@ -14,6 +14,8 @@ import {
   REMOTE_CHAT_ADD_NOTIFICATION
 } from 'app/redux/chat';
 
+import { setName } from 'app/redux/user';
+
 import Root from 'app/containers/Root.jsx';
 
 import io from 'socket.io-client';
@@ -51,6 +53,11 @@ const store = createStore(reducer, composeWithDevTools(
 ));
 
 socket.on('chat:sync', data => store.dispatch(sync(data.users, data.messages)));
+
+socket.on('disconnect', () => {
+  store.dispatch(sync([], []));
+  store.dispatch(setName(''));
+});
 
 const Application = () => (
   <Provider store={ store }>
