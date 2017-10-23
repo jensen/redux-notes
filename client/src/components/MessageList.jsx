@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
+import moment from 'moment';
+
 import { Comment } from 'semantic-ui-react';
 
 function Message(props) {
@@ -11,7 +13,7 @@ function Message(props) {
       <Comment.Avatar src={ `https://api.adorable.io/avatars/60/${props.username}.png` }/>
       <Comment.Content>
         <Comment.Author style={{ display: 'inline-block' }}>{ props.username }</Comment.Author>
-        <Comment.Metadata>5 minutes ago</Comment.Metadata>
+        <Comment.Metadata>{ moment(props.date).fromNow() }</Comment.Metadata>
         <Comment.Text>{ props.content }</Comment.Text>
       </Comment.Content>
     </Comment>
@@ -23,7 +25,7 @@ function Notification(props) {
     <Comment>
       <Comment.Content>
         <Comment.Author style={{ display: 'inline-block' }}>System</Comment.Author>
-        <Comment.Metadata>5 minutes ago</Comment.Metadata>
+        <Comment.Metadata>{ moment(props.date).fromNow() }</Comment.Metadata>
         <Comment.Text>{ props.content }</Comment.Text>
       </Comment.Content>
     </Comment>

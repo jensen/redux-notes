@@ -31,7 +31,7 @@ export default class UserCreate extends Component {
   onSubmitLogin = () => {
     this.props.setColor(this.state.color);
     this.props.setName(this.state.name);
-    this.props.addUser(this.state.name);
+    this.props.remoteCreateUser(this.state.name, this.state.color);
   }
 
   render() {

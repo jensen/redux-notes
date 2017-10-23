@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "dev:build": "webpack --config=client/webpack.config.js",
-    "dev": "webpack-dev-server --config=client/webpack.config.js",
-    "prod:build": "NODE_ENV=production webpack --config=client/webpack.config.js -p"
+    "dev:server": "node server",
+    "dev:client": "webpack-dev-server --config=client/webpack.config.js",
+    "prod:build": "NODE_ENV=production webpack --config=client/webpack.config.js -p",
+    "prod:server": "NODE_ENV=production node server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "moment": "^2.19.1",
     "react": "^16.0.0",
     "react-color": "^2.13.8",
     "react-dom": "^16.0.0",
@@ -18,6 +21,7 @@
     "redux": "^3.7.2",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.75.1",
+    "socket.io": "^2.0.4",
     "uuid": "^3.1.0"
   },
   "devDependencies": {

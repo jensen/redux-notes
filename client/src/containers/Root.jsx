@@ -7,20 +7,19 @@ import 'styles/application.scss';
 
 import { Segment } from 'semantic-ui-react';
 
-import { addMessage } from 'app/redux/chat';
+import { remoteAddMessage } from 'app/redux/chat';
 
 import Login from 'app/containers/Login.jsx';
 import Chat from 'app/containers/Chat.jsx';
 import Navigation from 'app/containers/Navigation.jsx';
 import MessageInput from 'app/components/MessageInput.jsx';
 
-
 const mapStateToProps = ({ user }) => ({
   user
 });
 
 const mapDispatchToProps = {
-  addMessage
+  remoteAddMessage
 };
 
 function Root(props) {

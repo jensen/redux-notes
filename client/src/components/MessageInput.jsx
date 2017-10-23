@@ -13,7 +13,7 @@ export default class MessageInput extends Component {
   onSubmitMessage = () => {
     if(this.state.message === '') return;
 
-    this.props.addMessage(this.props.user.name, this.state.message);
+    this.props.remoteAddMessage(this.props.user.name, this.state.message);
     this.setState({
       message: ''
     });

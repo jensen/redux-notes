@@ -61,6 +61,9 @@ module.exports = {
   devtool: 'eval-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, '../build/'),
+    proxy: {
+      '/socket.io': 'http://localhost:3000'
+    },
     watchOptions: {
       aggregateTimeout: 300,
       poll: 1000,

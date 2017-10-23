@@ -1,9 +1,10 @@
-import uuid from 'uuid';
-
 const CHAT_ADD_MESSAGE = 'CHAT_ADD_MESSAGE';
 const CHAT_ADD_NOTIFICATION = 'CHAT_ADD_NOTIFICATION';
-const CHAT_SET_USER_COUNT = 'CHAT_SET_USER_ACCOUNT';
 const CHAT_ADD_USER = 'CHAT_ADD_USER';
+const CHAT_SYNC = 'CHAT_SYNC';
+
+export const REMOTE_CHAT_CREATE_USER = 'REMOTE_CHAT_CREATE_USER';
+export const REMOTE_CHAT_ADD_MESSAGE = 'REMOTE_CHAT_ADD_MESSAGE';
 
 export function addMessage(username, content) {
   return {
@@ -20,18 +21,35 @@ export function addNotification(content) {
   };
 }
 
-export function setUserCount(count) {
+export function addUser(user) {
   return {
-    type: CHAT_SET_USER_COUNT,
-    count
+    type: CHAT_ADD_USER,
+    user
   };
 }
 
-export function addUser(username) {
+export function sync(users, messages) {
   return {
-    type: CHAT_ADD_USER,
-    username
+    type: CHAT_SYNC,
+    users,
+    messages
   };
+}
+
+export function remoteCreateUser(username, color) {
+  return {
+    type: REMOTE_CHAT_CREATE_USER,
+    username,
+    color
+  };
+}
+
+export function remoteAddMessage(username, content) {
+  return {
+    type: REMOTE_CHAT_ADD_MESSAGE,
+    username,
+    content
+  }
 }
 
 const initialState = {
@@ -42,7 +60,6 @@ const initialState = {
 function generateMessage({ username, content }) {
   return {
     type: 'CHAT_MESSAGE',
-    id: uuid(),
     username,
     content
   };
@@ -51,13 +68,12 @@ function generateMessage({ username, content }) {
 function generateNotification({ content }) {
   return {
     type: 'SENT_NOTIFICATION',
-    id: uuid(),
     content
   };
 }
 
 export default (state = initialState, action) => {
-  const { type, username, count } = action;
+  const { type, user } = action;
 
   if(type === CHAT_ADD_MESSAGE) {
     return {
@@ -73,20 +89,20 @@ export default (state = initialState, action) => {
     };
   }
 
-  if(type === CHAT_SET_USER_COUNT) {
-    return {
-      ...state,
-      count
-    }
-  }
-
   if(type === CHAT_ADD_USER) {
     return {
       ...state,
-      users: [ ...state.users, { username }]
+      users: [ ...state.users, user]
     }
   }
 
+  if(type === CHAT_SYNC) {
+    return {
+      ...state,
+      messages: action.messages,
+      users: action.users
+    };
+  }
 
   return state;
 };

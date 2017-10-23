@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Modal } from 'semantic-ui-react';
 
 import { setName, setColor } from 'app/redux/user';
-import { addUser } from 'app/redux/chat';
+import { remoteCreateUser } from 'app/redux/chat';
 
 import UserCreate from 'app/components/UserCreate.jsx';
 
@@ -17,7 +17,7 @@ const mapStateToProps = ({ user: { name, color }, chat: { users } }) => ({
 const mapDispatchToProps = {
   setName,
   setColor,
-  addUser
+  remoteCreateUser
 };
 
 function Login(props) {
