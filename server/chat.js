@@ -3,6 +3,7 @@ const uuid = require('uuid');
 const CHAT_ADD_USER = 'CHAT_ADD_USER';
 const CHAT_REMOVE_USER = 'CHAT_REMOVE_USER';
 const CHAT_ADD_MESSAGE = 'CHAT_ADD_MESSAGE';
+const CHAT_ADD_NOTIFICATION = 'CHAT_ADD_NOTIFICATION';
 
 const actions = {
   addUser(username, color, socket) {
@@ -13,10 +14,10 @@ const actions = {
       socket
     });
   },
-  removeUser(socket) {
+  removeUser(id) {
     return ({
       type: CHAT_REMOVE_USER,
-      socket
+      id
     });
   },
   addMessage(username, content) {
@@ -24,12 +25,18 @@ const actions = {
       type: CHAT_ADD_MESSAGE,
       username,
       content
-    })
+    });
+  },
+  addNotification(content) {
+    return ({
+      type: CHAT_ADD_NOTIFICATION,
+      content
+    });
   }
 };
 
 const reducer = (state = {}, action) => {
-  const { username, color, content, socket } = action;
+  const { id, username, color, content, socket } = action;
 
   if(action.type === CHAT_ADD_USER) {
     const id = uuid();
@@ -48,8 +55,6 @@ const reducer = (state = {}, action) => {
   }
 
   if(action.type === CHAT_REMOVE_USER) {
-    const id = Object.keys(state.users).find(user => state.users[user].socket === action.socket);
-
     const users = Object.keys(state.users).reduce((previous, current) => {
       const user = state.users[current];
 
@@ -63,7 +68,7 @@ const reducer = (state = {}, action) => {
     const messages = Object.keys(state.messages).reduce((previous, current) => {
       const message = state.messages[current];
 
-      if(message.user_id !== id) {
+      if(message.user_id !== id || message.type === 'CHAT_NOTIFICATION') {
         previous[current] = { ...message }
       }
 
@@ -91,8 +96,26 @@ const reducer = (state = {}, action) => {
           type: 'CHAT_MESSAGE',
           id,
           username,
+          color: state.users[user_id].color,
           content,
           user_id,
+          date: Date.now()
+        }
+      }
+    }
+  }
+
+  if(action.type === CHAT_ADD_NOTIFICATION) {
+    const id = uuid();
+
+    return {
+      ...state,
+      messages: {
+        ...state.messages,
+        [id]: {
+          type: 'CHAT_NOTIFICATION',
+          id,
+          content,
           date: Date.now()
         }
       }

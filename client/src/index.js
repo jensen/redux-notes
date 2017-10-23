@@ -7,7 +7,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import reducer from 'app/redux/';
 
-import { sync, REMOTE_CHAT_CREATE_USER, REMOTE_CHAT_ADD_MESSAGE } from 'app/redux/chat';
+import {
+  sync,
+  REMOTE_CHAT_CREATE_USER,
+  REMOTE_CHAT_ADD_MESSAGE,
+  REMOTE_CHAT_ADD_NOTIFICATION
+} from 'app/redux/chat';
+
 import Root from 'app/containers/Root.jsx';
 
 import io from 'socket.io-client';
@@ -27,6 +33,12 @@ const remoteMiddleware = store => next => action => {
   if(action.type === REMOTE_CHAT_ADD_MESSAGE) {
     return socket.emit('chat:addMessage', {
       username,
+      content
+    });
+  }
+
+  if(action.type === REMOTE_CHAT_ADD_NOTIFICATION) {
+    return socket.emit('chat:addNotification', {
       content
     });
   }

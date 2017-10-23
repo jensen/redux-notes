@@ -12,7 +12,7 @@ function Message(props) {
     <Comment>
       <Comment.Avatar src={ `https://api.adorable.io/avatars/60/${props.username}.png` }/>
       <Comment.Content>
-        <Comment.Author style={{ display: 'inline-block' }}>{ props.username }</Comment.Author>
+        <Comment.Author style={{ color: props.color, display: 'inline-block' }}>{ props.username }</Comment.Author>
         <Comment.Metadata>{ moment(props.date).fromNow() }</Comment.Metadata>
         <Comment.Text>{ props.content }</Comment.Text>
       </Comment.Content>

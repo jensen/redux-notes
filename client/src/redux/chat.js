@@ -5,6 +5,7 @@ const CHAT_SYNC = 'CHAT_SYNC';
 
 export const REMOTE_CHAT_CREATE_USER = 'REMOTE_CHAT_CREATE_USER';
 export const REMOTE_CHAT_ADD_MESSAGE = 'REMOTE_CHAT_ADD_MESSAGE';
+export const REMOTE_CHAT_ADD_NOTIFICATION = 'REMOTE_CHAT_ADD_NOTIFICATION';
 
 export function addMessage(username, content) {
   return {
@@ -49,7 +50,14 @@ export function remoteAddMessage(username, content) {
     type: REMOTE_CHAT_ADD_MESSAGE,
     username,
     content
-  }
+  };
+}
+
+export function remoteAddNotification(content) {
+  return {
+    type: REMOTE_CHAT_ADD_NOTIFICATION,
+    content
+  };
 }
 
 const initialState = {

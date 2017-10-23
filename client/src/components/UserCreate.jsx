@@ -16,6 +16,13 @@ export default class UserCreate extends Component {
     }
   }
 
+  disabled() {
+    const { name } = this.state;
+    const { users } = this.props;
+
+    return name === '' || users.find(u => u.username === name) || name.length > 16;
+  }
+
   onChangeName = ({ target }) => {
     this.setState({
       name: target.value
@@ -29,20 +36,21 @@ export default class UserCreate extends Component {
   }
 
   onSubmitLogin = () => {
-    this.props.setColor(this.state.color);
-    this.props.setName(this.state.name);
-    this.props.remoteCreateUser(this.state.name, this.state.color);
+    if(this.disabled()) return;
+
+    const { name, color } = this.state;
+
+    this.props.setColor(color);
+    this.props.setName(name);
+    this.props.remoteCreateUser(name, color);
   }
 
   render() {
-    const { name } = this.state;
-    const { users } = this.props;
-
-    const disabled = name === '' || users.find(u => u.username === name) || name.length > 16;
+    const { name, color } = this.state;
 
     return (
       <Card>
-        <Image src={ Avatar(this.state.name, 290) } />
+        <Image src={ Avatar(name, 290) } />
         <Card.Content>
           <Segment basic>
             <Form onSubmit={ this.onSubmitLogin }>
@@ -50,11 +58,11 @@ export default class UserCreate extends Component {
             </Form>
           </Segment>
           <Segment basic>
-            <CirclePicker color={ this.state.color } onChange={ this.onChangeColor } />
+            <CirclePicker color={ color } onChange={ this.onChangeColor } />
           </Segment>
         </Card.Content>
         <Card.Content extra>
-          <Button fluid positive disabled={ disabled } onClick={ this.onSubmitLogin }>Login</Button>
+          <Button fluid positive disabled={ this.disabled() } onClick={ this.onSubmitLogin }>Login</Button>
         </Card.Content>
       </Card>
     )

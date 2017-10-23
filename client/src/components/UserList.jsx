@@ -7,7 +7,7 @@ export default function UserList(props) {
     <List.Item key={ user.username }>
       <Image avatar src={ `https://api.adorable.io/avatars/40/${user.username}.png` } />
       <List.Content>
-        <List.Header>{ user.username }</List.Header>
+        <List.Header style={{ color: user.color }}>{ user.username }</List.Header>
       </List.Content>
     </List.Item>
   ));
